@@ -26,7 +26,7 @@ LINE_CHANNEL_ACCESS_TOKEN = "9xqCZdDndsUI4i4AsSoDxztR+cP3yqZ3p9eGDqTIvkR7IKcSeM5
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
