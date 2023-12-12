@@ -51,8 +51,9 @@ python manage.py startapp test_html
 
 #加入控管
 -git add<filename>
--git add .  
- - 加入所有版本控管/變動確認
+-git add .
+
+- 加入所有版本控管/變動確認
 
 #確認儲存
 
