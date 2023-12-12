@@ -23,6 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-y!&-=b&e9ub#$9pm()cs37=ibhah50-xgg&h4gb4ax+s$4mwn7"
 LINE_CHANNEL_SECRET = "6a219b4824e767c944e121c9336b4eaa"
 LINE_CHANNEL_ACCESS_TOKEN = "9xqCZdDndsUI4i4AsSoDxztR+cP3yqZ3p9eGDqTIvkR7IKcSeM5azocjuBRpF4gV5U7CaFpKHIo+Rfkj33btS2IYN0k7tz2hzpJdFTtrqkqxMgb48Kuv/xBpednWSaztn+r9+klf3hrJHEIZ0YhldwdB04t89/1O/w1cDnyilFU="
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 

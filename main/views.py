@@ -26,12 +26,24 @@ def callback(request):
             return HttpResponseBadRequest()
         for event in events:
             if isinstance(event, MessageEvent):
-                # if event.message.text=='hello':
+                message = event.message.text
+                print(message)
+                if message == "你好":
+                    replay_message = "您好!請輸入欲查詢之幣別"
+                # elif message=='美金':
+                #     reply_message=get_rate()
+
+                else:
+                    replay_message = "請重新輸入"
+
                 line_bot_api.reply_message(
                     event.reply_token,
-                    # TextSendMessage(text='hello world')
-                    TextSendMessage(text=event.message.text),
+                    TextSendMessage(text=replay_message),
                 )
         return HttpResponse()
     else:
         return HttpResponseBadRequest()
+
+
+# 寫函式區
+# def get_rate():
