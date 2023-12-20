@@ -9,6 +9,8 @@ from linebot import LineBotApi, WebhookHandler, WebhookParser
 from linebot.exceptions import InvalidSignatureError, LineBotApiError
 from linebot.models import MessageEvent, TextSendMessage
 
+from rate import get_middle_rate
+
 line_bot_api = LineBotApi(settings.LINE_CHANNEL_ACCESS_TOKEN)
 parse = WebhookParser(settings.LINE_CHANNEL_SECRET)
 
@@ -27,23 +29,27 @@ def callback(request):
         for event in events:
             if isinstance(event, MessageEvent):
                 message = event.message.text
-                print(message)
+                message_object = None
+                # print(message)
                 if message == "你好":
-                    replay_message = "您好!請輸入欲查詢之幣別"
-                # elif message=='美金':
-                #     reply_message=get_rate()
+                    replay_message = "您好!請輸入欲查詢之幣別:例如美金、港幣、英鎊...等"
+                    message_object = TextSendMessage(text=replay_message)
+
+                elif message == "美金":
+                    reply_message = [
+                        f"{row[0]}: 即期買入 {row[1]}, 即期賣出 {row[2]}, 目前中價 {row[3]}"
+                        for row in result_data
+                    ]
+                    message_object = TextSendMessage(text=replay_message)
 
                 else:
-                    replay_message = "請重新輸入"
+                    message_object = TextSendMessage(text="請重新輸入!")
 
                 line_bot_api.reply_message(
                     event.reply_token,
-                    TextSendMessage(text=replay_message),
+                    message_object,
+                    # TextSendMessage(text=replay_message),
                 )
         return HttpResponse()
     else:
         return HttpResponseBadRequest()
-
-
-# 寫函式區
-# def get_rate():

@@ -17,11 +17,11 @@ def get_middle_rate():
         chrome = webdriver.Chrome(service=Service(r"C:\webdriver\chromedriver.exe"))
         chrome.get("https://rate.bot.com.tw/xrt?Lang=zh-TW")
         chrome.maximize_window()
-        time.sleep(5)
+        time.sleep(1)
         chrome.find_element(
             by=By.XPATH, value="/html/body/div[1]/main/div[4]/div/p[1]/a[1]"
         ).click()
-        time.sleep(5)
+        time.sleep(1)
         soup = BeautifulSoup(chrome.page_source, "lxml")
         for tr in soup.find("tbody").find_all("tr"):
             data = []
