@@ -71,20 +71,19 @@ def get_middle_rate():
                     for _, info in result_data.items()
                 }
 
-                input_key = "南非幣"
+                input_key = "美金"
                 temp_str = ""
                 if input_key in result_data:
                     for key in result_data[input_key]:
                         temp_str += f"\n{key}:{result_data[input_key][key]}"
-                    result = f"{input_key}{temp_str}"
+                    message = f"{input_key}{temp_str}"
                 else:
-                    result = "輸入錯誤!"
-                result
+                    message = "輸入錯誤!"
 
     except Exception as e:
         print(e)
 
-    return result
+    return message
 
 
 if __name__ == "__main__":
