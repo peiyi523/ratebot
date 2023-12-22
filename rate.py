@@ -56,7 +56,7 @@ def get_middle_rate():
                 result_data = pd.DataFrame(
                     result_data, columns=["幣別", "即期買入", "即期賣出", "目前中價"]
                 )
-                # str.extract(r'(.*)\s\((.*)\)') 使用正則表達式，(.*) 代表匹配任意字符，\s 代表空格，\((.*)\)
+                # str.extract(r'(.*)\s\((.*)\)') 使用正則表達式，(.*) 代表匹配任意字符，\s 代表空格，\((.*)\)代表匹配括號內的任意字和符號。
                 result_data[["幣別", "代碼"]] = result_data["幣別"].str.extract(
                     r"(.*)\s\((.*)\)"
                 )
