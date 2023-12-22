@@ -49,7 +49,6 @@ def callback(request):
                 line_bot_api.reply_message(
                     event.reply_token,
                     message_object,
-                    # TextSendMessage(text=replay_message),
                 )
         return HttpResponse()
     else:
