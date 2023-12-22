@@ -36,10 +36,7 @@ def callback(request):
                     message_object = TextSendMessage(text=replay_message)
 
                 elif message == "美金":
-                    reply_message = [
-                        f"{row[0]}: 即期買入 {row[1]}, 即期賣出 {row[2]}, 目前中價 {row[3]}"
-                        for row in result_data
-                    ]
+                    reply_message = result
                     message_object = TextSendMessage(text=replay_message)
 
                 else:

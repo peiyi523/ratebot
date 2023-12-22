@@ -12,6 +12,7 @@ chrome = ""
 
 def get_middle_rate():
     datas = []
+
     try:
         global chrome
         chrome = webdriver.Chrome(service=Service(r"C:\webdriver\chromedriver.exe"))
@@ -52,12 +53,40 @@ def get_middle_rate():
                 # 將平均值附加在各自的第三個位置
                 result_data = [row + [avg] for row, avg in zip(datas, averages)]
 
+                result_data = pd.DataFrame(
+                    result_data, columns=["幣別", "即期買入", "即期賣出", "目前中價"]
+                )
+                # str.extract(r'(.*)\s\((.*)\)') 使用正則表達式，(.*) 代表匹配任意字符，\s 代表空格，\((.*)\)
+                result_data[["幣別", "代碼"]] = result_data["幣別"].str.extract(
+                    r"(.*)\s\((.*)\)"
+                )
+                result_data = result_data.drop(columns=["代碼"])
+                result_data = result_data.to_dict("index")
+                result_data = {
+                    info["幣別"].strip(): {
+                        "即期買入": info["即期買入"],
+                        "即期賣出": info["即期賣出"],
+                        "目前中價": info["目前中價"],
+                    }
+                    for _, info in result_data.items()
+                }
+
+                input_key = "南非幣"
+                temp_str = ""
+                if input_key in result_data:
+                    for key in result_data[input_key]:
+                        temp_str += f"\n{key}:{result_data[input_key][key]}"
+                    result = f"{input_key}{temp_str}"
+                else:
+                    result = "輸入錯誤!"
+                result
+
     except Exception as e:
         print(e)
 
-    return result_data
+    return result
 
 
 if __name__ == "__main__":
-    result_data = get_middle_rate()
-    print(result_data)
+    result = get_middle_rate()
+    print(result)
