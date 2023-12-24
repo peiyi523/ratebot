@@ -70,15 +70,23 @@ def get_middle_rate():
                     }
                     for _, info in result_data.items()
                 }
+    except Exception as e:
+        print(e)
+    return result_data
 
-                input_key = "美金"
-                temp_str = ""
-                if input_key in result_data:
-                    for key in result_data[input_key]:
-                        temp_str += f"\n{key}:{result_data[input_key][key]}"
-                    message = f"{input_key}{temp_str}"
-                else:
-                    message = "輸入錯誤!"
+
+def display_currency_info(currency_code, result_data):
+    try:
+        if currency_code in result_data:
+            # print(currency_code)
+            temp_str = ""
+            if currency_code in result_data:
+                for key in result_data[currency_code]:
+                    temp_str += f"\n{key}:{result_data[currency_code][key]}"
+                message = f"{currency_code}{temp_str}"
+
+        else:
+            message = f"輸入錯誤!請重新輸入!"
 
     except Exception as e:
         print(e)
@@ -87,5 +95,6 @@ def get_middle_rate():
 
 
 if __name__ == "__main__":
-    result = get_middle_rate()
-    print(result)
+    result_data = get_middle_rate()
+    print(result_data)
+    print(display_currency_info("日圓", result_data))
