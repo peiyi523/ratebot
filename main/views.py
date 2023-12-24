@@ -39,8 +39,8 @@ def callback(request):
                         message_object = TextSendMessage(text=replay_message)
 
                     elif message == "美金":
-                        result = get_middle_rate()
-                        reply_message = "報價如下:\n".join(result)
+                        result_data = get_middle_rate()
+                        reply_message = "報價如下:\n".join(result_data)
                         message_object = TextSendMessage(text=replay_message)
 
                     else:
