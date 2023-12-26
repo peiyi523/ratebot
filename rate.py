@@ -75,7 +75,8 @@ def get_middle_rate():
     return result_data
 
 
-def display_currency_info(currency_code, result_data):
+def display_currency_info(display_currency_info):
+    message = "?"
     try:
         if currency_code in result_data:
             # print(currency_code)
@@ -90,11 +91,11 @@ def display_currency_info(currency_code, result_data):
 
     except Exception as e:
         print(e)
-
+        message = str(e)
     return message
 
 
 if __name__ == "__main__":
     result_data = get_middle_rate()
-    # print(result_data)
-    print(display_currency_info("日圓", result_data))
+    print(result_data)
+    print(display_currency_info("日圓"))
