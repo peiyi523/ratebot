@@ -40,7 +40,7 @@ def callback(request):
 
                     elif message == "美金":
                         result_data = get_middle_rate()
-                        reply_message = "報價如下: " + ",".join(result_data)
+                        replay_message = "報價如下: " + ",".join(result_data)
                         message_object = TextSendMessage(text=replay_message)
 
                     else:
