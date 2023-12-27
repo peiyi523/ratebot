@@ -8,6 +8,7 @@ from selenium.webdriver.common.by import By
 
 # 查價
 chrome = ""
+result_data = None
 
 
 def get_middle_rate():
@@ -75,7 +76,8 @@ def get_middle_rate():
     return result_data
 
 
-def display_currency_info(display_currency_info):
+def display_currency_info(currency_code):
+    global result_data
     message = "?"
     try:
         if currency_code in result_data:
@@ -84,7 +86,7 @@ def display_currency_info(display_currency_info):
             if currency_code in result_data:
                 for key in result_data[currency_code]:
                     temp_str += f"\n{key}:{result_data[currency_code][key]}"
-                message = f"{currency_code}{temp_str}"
+                message = f"{currency_code}\n報價如下:{temp_str}"
 
         else:
             message = f"輸入錯誤!請重新輸入!"
@@ -97,5 +99,5 @@ def display_currency_info(display_currency_info):
 
 if __name__ == "__main__":
     result_data = get_middle_rate()
-    print(result_data)
-    print(display_currency_info("日圓"))
+    # print(result_data)
+    print(display_currency_info("美金"))
