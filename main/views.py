@@ -31,6 +31,7 @@ def callback(request):
         for event in events:
             if isinstance(event, MessageEvent):
                 message = event.message.text
+                result_data = get_middle_rate()
                 message_object = None
                 # 判斷是否進行報價模式
                 if start_rate:
@@ -38,9 +39,9 @@ def callback(request):
                         replay_message = "您好!請輸入欲查詢之幣別:例如美金、港幣、英鎊...等"
                         message_object = TextSendMessage(text=replay_message)
 
-                    elif message == "美金":
-                        result_data = get_middle_rate()
-                        replay_message = "報價如下: " + ",".join(result_data)
+                    elif message in result_data:
+                        currency_info = result_data[message]
+                        replay_message = f"{message}\n報價如下:\n即期買入: {currency_info['即期買入']}\n即期賣出: {currency_info['即期賣出']}\n目前中價: {currency_info['目前中價']}"
                         message_object = TextSendMessage(text=replay_message)
 
                     else:

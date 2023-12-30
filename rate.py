@@ -81,12 +81,16 @@ def display_currency_info(currency_code):
     message = "?"
     try:
         if currency_code in result_data:
-            # print(currency_code)
-            temp_str = ""
-            if currency_code in result_data:
-                for key in result_data[currency_code]:
-                    temp_str += f"\n{key}:{result_data[currency_code][key]}"
-                message = f"{currency_code}\n報價如下:{temp_str}"
+            currency_info = result_data[currency_code]
+            message = f"{currency_code} 報價如下:\n"
+            for key, value in currency_info.items():
+                message += f"{key}: {value}\n"
+        # 另一種寫法
+        # if currency_code in result_data:
+        #     temp_str = ""
+        #     for key in result_data[currency_code]:
+        #         temp_str += f"\n{key}:{result_data[currency_code][key]}"
+        #     message = f"{currency_code}\n報價如下:{temp_str}"
 
         else:
             message = f"輸入錯誤!請重新輸入!"
