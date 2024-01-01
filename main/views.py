@@ -13,7 +13,7 @@ from rate import get_middle_rate
 
 line_bot_api = LineBotApi(settings.LINE_CHANNEL_ACCESS_TOKEN)
 parse = WebhookParser(settings.LINE_CHANNEL_SECRET)
-start_rate = True
+# start_rate = True
 
 
 @csrf_exempt
@@ -33,19 +33,27 @@ def callback(request):
                 message = event.message.text
                 result_data = get_middle_rate()
                 message_object = None
-                # 判斷是否進行報價模式
-                if start_rate:
-                    if message == "報價":
-                        replay_message = "您好!請輸入欲查詢之幣別:例如美金、港幣、英鎊...等"
-                        message_object = TextSendMessage(text=replay_message)
+                # 判斷是否進行報價模式(如果之後有再擴展其他功能，再用這個判斷式)
+                # if start_rate:
+                if message == "報價":
+                    replay_message = "您好!請輸入欲查詢之幣別:例如美金、港幣、英鎊...等"
+                    message_object = TextSendMessage(text=replay_message)
 
-                    elif message in result_data:
-                        currency_info = result_data[message]
-                        replay_message = f"{message}\n報價如下:\n即期買入: {currency_info['即期買入']}\n即期賣出: {currency_info['即期賣出']}\n目前中價: {currency_info['目前中價']}"
-                        message_object = TextSendMessage(text=replay_message)
+                elif message in result_data:
+                    currency_info = result_data[message]
+                    replay_message = f"{message}\n報價如下:\n即期買入: {currency_info['即期買入']}\n即期賣出: {currency_info['即期賣出']}\n目前中價: {currency_info['目前中價']}"
+                    message_object = TextSendMessage(text=replay_message)
 
-                    else:
-                        message_object = TextSendMessage(text="請重新輸入!")
+                    #    這樣寫也可以
+                    # elif message in result_data:
+                    #     temp_str = ""
+                    #     for key in result_data[message]:
+                    #         temp_str += f"\n{key}:{result_data[message][key]}"
+                    #         replay_message = f"{message}\n報價如下:{temp_str}"
+                    #         message_object = TextSendMessage(text=replay_message)
+
+                else:
+                    message_object = TextSendMessage(text="請重新輸入!")
 
                 line_bot_api.reply_message(
                     event.reply_token,

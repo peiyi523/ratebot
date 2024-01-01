@@ -11,19 +11,23 @@ chrome = ""
 result_data = None
 
 
-def get_middle_rate():
+def get_middle_rate(path=r"C:\webdriver\chromedriver.exe", hide=True):
     datas = []
 
     try:
         global chrome
-        chrome = webdriver.Chrome(service=Service(r"C:\webdriver\chromedriver.exe"))
+        options = webdriver.ChromeOptions()
+        service = Service(executable_path=path)
+        if hide:
+            options.add_argument("--headless")
+        chrome = webdriver.Chrome(service=service, options=options)
         chrome.get("https://rate.bot.com.tw/xrt?Lang=zh-TW")
-        chrome.maximize_window()
-        time.sleep(1)
+        chrome.maximize_window()  # 把網頁擴展到最大
+        time.sleep(0.5)
         chrome.find_element(
             by=By.XPATH, value="/html/body/div[1]/main/div[4]/div/p[1]/a[1]"
         ).click()
-        time.sleep(1)
+        # time.sleep(0.5)
         soup = BeautifulSoup(chrome.page_source, "lxml")
         for tr in soup.find("tbody").find_all("tr"):
             data = []
@@ -39,7 +43,7 @@ def get_middle_rate():
             if data != []:
                 datas.append([data[0], data[3], data[4]])
                 datas = [[0 if value == "-" else value for value in i] for i in datas]
-                # 把字串轉成浮點數
+                # 把字串轉成浮點數計算中價
                 datas = [
                     [
                         float(x)
@@ -63,20 +67,22 @@ def get_middle_rate():
                 )
                 result_data = result_data.drop(columns=["代碼"])
                 result_data = result_data.to_dict("index")
+                # 轉成字典之後原本是長這樣result_data={0: {'幣別': '美金', '即期買入': 31.155, '即期賣出': 31.255, '目前中價': 31.205},...}
+                # 下面法法是為了把最前面的編號去掉
                 result_data = {
                     info["幣別"].strip(): {
                         "即期買入": info["即期買入"],
                         "即期賣出": info["即期賣出"],
                         "目前中價": info["目前中價"],
                     }
-                    for _, info in result_data.items()
+                    for _, info in result_data.items()  # "_"表示只要值(info)本身的資料，不需要鍵(_)的資料
                 }
     except Exception as e:
         print(e)
     return result_data
 
 
-def display_currency_info(currency_code):
+def get_currency_info(currency_code):
     global result_data
     message = "?"
     try:
@@ -104,4 +110,4 @@ def display_currency_info(currency_code):
 if __name__ == "__main__":
     result_data = get_middle_rate()
     # print(result_data)
-    print(display_currency_info("美金"))
+    print(get_currency_info("歐元"))
