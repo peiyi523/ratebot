@@ -14,11 +14,12 @@ from rate import get_middle_rate
 line_bot_api = LineBotApi(settings.LINE_CHANNEL_ACCESS_TOKEN)
 parse = WebhookParser(settings.LINE_CHANNEL_SECRET)
 # start_rate = True
+result_data = None
 
 
 @csrf_exempt
 def callback(request):
-    global start_rate, result
+    global start_rate, result_data
     if request.method == "POST":
         signature = request.META["HTTP_X_LINE_SIGNATURE"]
         body = request.body.decode("utf-8")
@@ -31,7 +32,8 @@ def callback(request):
         for event in events:
             if isinstance(event, MessageEvent):
                 message = event.message.text
-                result_data = get_middle_rate()
+                if result_data == None:
+                    result_data = get_middle_rate()
                 message_object = None
                 # 判斷是否進行報價模式(如果之後有再擴展其他功能，再用這個判斷式)
                 # if start_rate:

@@ -68,7 +68,7 @@ def get_middle_rate(path=r"C:\webdriver\chromedriver.exe", hide=True):
                 result_data = result_data.drop(columns=["代碼"])
                 result_data = result_data.to_dict("index")
                 # 轉成字典之後原本是長這樣result_data={0: {'幣別': '美金', '即期買入': 31.155, '即期賣出': 31.255, '目前中價': 31.205},...}
-                # 下面法法是為了把最前面的編號去掉
+                # 下面語法是為了把最前面的編號去掉
                 result_data = {
                     info["幣別"].strip(): {
                         "即期買入": info["即期買入"],
