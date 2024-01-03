@@ -11,7 +11,7 @@ chrome = ""
 result_data = None
 
 
-def get_middle_rate(path=r"C:\webdriver\chromedriver.exe", hide=True):
+def get_middle_rate(path=r"C:\webdriver\chromedriver.exe", hide=False):
     datas = []
 
     try:

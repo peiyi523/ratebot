@@ -37,7 +37,7 @@ def callback(request):
                 message_object = None
                 # 判斷是否進行報價模式(如果之後有再擴展其他功能，再用這個判斷式)
                 # if start_rate:
-                if message == "報價":
+                if message == "匯率報價":
                     replay_message = "您好!請輸入欲查詢之幣別:例如美金、港幣、英鎊...等"
                     message_object = TextSendMessage(text=replay_message)
 
