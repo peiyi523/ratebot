@@ -3,6 +3,7 @@ from datetime import datetime
 from django.conf import settings
 from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseForbidden
 from django.views.decorators.csrf import csrf_exempt
+from linebot.models import FlexSendMessage
 
 # Create your views here.
 from linebot import LineBotApi, WebhookHandler, WebhookParser
@@ -37,7 +38,7 @@ def callback(request):
                 message_object = None
                 # 判斷是否進行報價模式(如果之後有再擴展其他功能，再用這個判斷式)
                 # if start_rate:
-                if message == "匯率報價":
+                if message == "報價":
                     replay_message = "您好!請輸入欲查詢之幣別:例如美金、港幣、英鎊...等"
                     message_object = TextSendMessage(text=replay_message)
 
@@ -53,6 +54,9 @@ def callback(request):
                     #         temp_str += f"\n{key}:{result_data[message][key]}"
                     #         replay_message = f"{message}\n報價如下:{temp_str}"
                     #         message_object = TextSendMessage(text=replay_message)
+                elif message == "新聞":
+                    replay_message = "https://news.cnyes.com/news/cat/forex"
+                    message_object = TextSendMessage(text=replay_message)
 
                 else:
                     message_object = TextSendMessage(text="請重新輸入!")
