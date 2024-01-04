@@ -55,7 +55,7 @@ def callback(request):
                     #         replay_message = f"{message}\n報價如下:{temp_str}"
                     #         message_object = TextSendMessage(text=replay_message)
                 elif message == "新聞":
-                    replay_message = "https://news.cnyes.com/news/cat/forex"
+                    replay_message = "鉅亨網 (https://news.cnyes.com/news/cat/forex)\n聯合新聞網(https://udn.com/search/tagging/2/%E5%A4%96%E5%8C%AF)"
                     message_object = TextSendMessage(text=replay_message)
 
                 else:

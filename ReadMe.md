@@ -95,3 +95,5 @@ python manage.py migrate
 
 #建虛擬環境
 conda create -n django_env
+
+# rich-menu 參考 github
