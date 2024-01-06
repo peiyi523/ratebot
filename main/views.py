@@ -39,7 +39,7 @@ def callback(request):
                 # 判斷是否進行報價模式(如果之後有再擴展其他功能，再用這個判斷式)
                 # if start_rate:
                 if message == "報價":
-                    replay_message = "您好!請輸入欲查詢之幣別:例如美金、港幣、英鎊...等"
+                    replay_message = "您好!\n" + "請輸入欲查詢之幣別:\n" + "美金、港幣、日圓、人民幣...等"
                     message_object = TextSendMessage(text=replay_message)
 
                 elif message in result_data:
@@ -55,7 +55,12 @@ def callback(request):
                     #         replay_message = f"{message}\n報價如下:{temp_str}"
                     #         message_object = TextSendMessage(text=replay_message)
                 elif message == "新聞":
-                    replay_message = "鉅亨網 (https://news.cnyes.com/news/cat/forex)\n聯合新聞網(https://udn.com/search/tagging/2/%E5%A4%96%E5%8C%AF)"
+                    replay_message = (
+                        "鉅亨網\n"
+                        + "https://news.cnyes.com/news/cat/forex \n"
+                        + "經濟日報\n"
+                        + "https://money.udn.com/search/tagging/1001/%E5%8C%AF%E5%B8%82"
+                    )
                     message_object = TextSendMessage(text=replay_message)
 
                 else:
