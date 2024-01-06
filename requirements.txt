@@ -26,7 +26,7 @@ pydantic_core==2.6.3
 python-dateutil==2.8.2
 pytz==2023.3.post1
 pip==23.3.2
-requests==1.21.1
+requests==2.31.0
 six==1.16.0
 soupsieve==2.4.1
 sqlparse==0.4.4
