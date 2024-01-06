@@ -11,13 +11,13 @@ chrome = ""
 result_data = None
 
 
-def get_middle_rate(path=r"C:\webdriver\chromedriver.exe", hide=True):
+def get_middle_rate():
     datas = []
-
+    hide = True
     try:
         global chrome
         options = webdriver.ChromeOptions()
-        service = Service(executable_path=path)
+        service = Service(executable_path=r"C:\webdriver\chromedriver.exe")
         if hide:
             options.add_argument("--headless")
         chrome = webdriver.Chrome(service=service, options=options)
