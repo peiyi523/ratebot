@@ -8,13 +8,12 @@ from selenium.webdriver.common.by import By
 
 # 查價
 chrome = ""
-# result_data = None
+result_data = None
 
 
 def get_middle_rate():
     datas = []
     hide = True
-    result_data = None
     try:
         global chrome
         options = webdriver.ChromeOptions()
