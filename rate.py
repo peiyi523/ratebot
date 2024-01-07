@@ -8,12 +8,13 @@ from selenium.webdriver.common.by import By
 
 # 查價
 chrome = ""
-result_data = None
+# result_data = None
 
 
 def get_middle_rate():
     datas = []
     hide = True
+    result_data = None
     try:
         global chrome
         options = webdriver.ChromeOptions()
@@ -110,4 +111,4 @@ def get_currency_info(currency_code):
 if __name__ == "__main__":
     result_data = get_middle_rate()
     # print(result_data)
-    print(get_currency_info("歐元"))
+    print(get_currency_info("日圓"))
