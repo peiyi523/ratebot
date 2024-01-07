@@ -72,6 +72,6 @@ def callback(request):
         return HttpResponseBadRequest()
 
 
-# def index(request):
-#     now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-#     return HttpResponse(f"<h1>現在時刻:{now}</h1>")
+def index(request):
+    now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    return HttpResponse(f"<h1>現在時刻:{now}</h1>")
