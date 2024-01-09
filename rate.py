@@ -8,11 +8,9 @@ from selenium.webdriver.common.by import By
 
 # 查價
 chrome = ""
-result_data = None
 
 
-def get_middle_rate():
-    datas = []
+def get_soup():
     hide = True
     try:
         global chrome
@@ -20,15 +18,27 @@ def get_middle_rate():
         service = Service(executable_path=r"C:\webdriver\chromedriver.exe")
         if hide:
             options.add_argument("--headless")
-        chrome = webdriver.Chrome(service=service, options=options)
-        chrome.get("https://rate.bot.com.tw/xrt?Lang=zh-TW")
-        chrome.maximize_window()  # 把網頁擴展到最大
-        time.sleep(0.5)
-        chrome.find_element(
-            by=By.XPATH, value="/html/body/div[1]/main/div[4]/div/p[1]/a[1]"
-        ).click()
-        # time.sleep(0.5)
-        soup = BeautifulSoup(chrome.page_source, "lxml")
+            chrome = webdriver.Chrome(service=service, options=options)
+            chrome.get("https://rate.bot.com.tw/xrt?Lang=zh-TW")
+            chrome.maximize_window()  # 把網頁擴展到最大
+            time.sleep(0.5)
+            chrome.find_element(
+                by=By.XPATH, value="/html/body/div[1]/main/div[4]/div/p[1]/a[1]"
+            ).click()
+            # time.sleep(0.5)
+            soup = BeautifulSoup(chrome.page_source, "lxml")
+            return soup
+        else:
+            print("取得網頁失敗", resp.status_code)
+    except Exception as e:
+        print(e)
+
+
+def get_middle_rate():
+    result_data = []
+    datas = []
+    try:
+        soup = get_soup()
         for tr in soup.find("tbody").find_all("tr"):
             data = []
             for i, td in enumerate(tr.find_all("td")[:5]):
@@ -77,6 +87,7 @@ def get_middle_rate():
                     }
                     for _, info in result_data.items()  # "_"表示只要值(info)本身的資料，不需要鍵(_)的資料
                 }
+
     except Exception as e:
         print(e)
     return result_data
