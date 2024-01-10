@@ -1,6 +1,7 @@
 import pandas as pd
 import requests
 import time
+import os
 from bs4 import BeautifulSoup
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
@@ -17,13 +18,16 @@ def get_soup():
         global chrome
         options = webdriver.ChromeOptions()
         # service = Service(executable_path=ChromeDriverManager().install())
-        service = Service(executable_path="chromedriver.exe")
+        service = Service(executable_path="./chromedriver")
+        # chromedriver_path = os.path.abspath("./chromedriver")
         if hide:
             options.add_argument("--headless")
             # chrome = webdriver.Chrome(
             #     executable_path=r"C:\webdriver\chromedriver.exe", options=options
             # )
             chrome = webdriver.Chrome(service=service, options=options)
+            # chrome = webdriver.Chrome(executable_path=chromedriver_path, options=options
+            # )
             chrome.get("https://rate.bot.com.tw/xrt?Lang=zh-TW")
             chrome.maximize_window()  # 把網頁擴展到最大
             time.sleep(0.5)
