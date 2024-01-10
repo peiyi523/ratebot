@@ -16,10 +16,13 @@ def get_soup():
     try:
         global chrome
         options = webdriver.ChromeOptions()
-        service = Service(executable_path=ChromeDriverManager().install())
-        # service = Service(executable_path=r"C:\webdriver\chromedriver.exe")
+        # service = Service(executable_path=ChromeDriverManager().install())
+        service = Service(executable_path="chromedriver.exe")
         if hide:
             options.add_argument("--headless")
+            # chrome = webdriver.Chrome(
+            #     executable_path=r"C:\webdriver\chromedriver.exe", options=options
+            # )
             chrome = webdriver.Chrome(service=service, options=options)
             chrome.get("https://rate.bot.com.tw/xrt?Lang=zh-TW")
             chrome.maximize_window()  # 把網頁擴展到最大
