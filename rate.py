@@ -5,6 +5,7 @@ from bs4 import BeautifulSoup
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
+from webdriver_manager.chrome import ChromeDriverManager
 
 # 查價
 chrome = ""
@@ -15,7 +16,8 @@ def get_soup():
     try:
         global chrome
         options = webdriver.ChromeOptions()
-        service = Service(executable_path=r"C:\webdriver\chromedriver.exe")
+        service = Service(executable_path=ChromeDriverManager().install())
+        # service = Service(executable_path=r"C:\webdriver\chromedriver.exe")
         if hide:
             options.add_argument("--headless")
             chrome = webdriver.Chrome(service=service, options=options)
