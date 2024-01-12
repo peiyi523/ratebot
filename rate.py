@@ -3,44 +3,51 @@ import requests
 import time
 import os
 from bs4 import BeautifulSoup
-from selenium import webdriver
-from selenium.webdriver.chrome.service import Service
-from selenium.webdriver.common.by import By
-from webdriver_manager.chrome import ChromeDriverManager
+
+# from selenium import webdriver
+# from selenium.webdriver.chrome.service import Service
+# from selenium.webdriver.common.by import By
+# from webdriver_manager.chrome import ChromeDriverManager
 
 # 查價
-chrome = ""
+# chrome = ""
 
 
+# def get_soup():
+# # hide = True
+# try:
+#     # global chrome
+#     options = webdriver.ChromeOptions()
+#     # service = Service(executable_path=ChromeDriverManager().install())
+#     service = Service(executable_path="./chromedriver")
+#     # chromedriver_path = os.path.abspath("./chromedriver")
+#     if hide:
+#         options.add_argument("--headless")
+# # chrome = webdriver.Chrome(
+# #     executable_path=r"C:\webdriver\chromedriver.exe", options=options
+# # )
+# chrome = webdriver.Chrome(service=service, options=options)
+# # chrome = webdriver.Chrome(executable_path=chromedriver_path, options=options
+# # )
+# chrome.get("https://rate.bot.com.tw/xrt?Lang=zh-TW")
+# chrome.maximize_window()  # 把網頁擴展到最大
+# time.sleep(0.5)
+# chrome.find_element(
+#     by=By.XPATH, value="/html/body/div[1]/main/div[4]/div/p[1]/a[1]"
+# ).click()
+# # time.sleep(0.5)
 def get_soup():
-    hide = True
     try:
-        global chrome
-        options = webdriver.ChromeOptions()
-        # service = Service(executable_path=ChromeDriverManager().install())
-        service = Service(executable_path="./chromedriver")
-        # chromedriver_path = os.path.abspath("./chromedriver")
-        if hide:
-            options.add_argument("--headless")
-            # chrome = webdriver.Chrome(
-            #     executable_path=r"C:\webdriver\chromedriver.exe", options=options
-            # )
-            chrome = webdriver.Chrome(service=service, options=options)
-            # chrome = webdriver.Chrome(executable_path=chromedriver_path, options=options
-            # )
-            chrome.get("https://rate.bot.com.tw/xrt?Lang=zh-TW")
-            chrome.maximize_window()  # 把網頁擴展到最大
-            time.sleep(0.5)
-            chrome.find_element(
-                by=By.XPATH, value="/html/body/div[1]/main/div[4]/div/p[1]/a[1]"
-            ).click()
-            # time.sleep(0.5)
-            soup = BeautifulSoup(chrome.page_source, "lxml")
-            return soup
+        url = "https://rate.bot.com.tw/xrt?Lang=zh-TW"
+        resp = requests.get(url)
+        if resp.status_code == 200:
+            soup = BeautifulSoup(resp.text, "lxml")
+
         else:
             print("取得網頁失敗", resp.status_code)
     except Exception as e:
         print(e)
+    return soup
 
 
 def get_middle_rate():
