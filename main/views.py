@@ -15,7 +15,7 @@ from rate import get_middle_rate
 
 line_bot_api = LineBotApi(settings.LINE_CHANNEL_ACCESS_TOKEN)
 parse = WebhookParser(settings.LINE_CHANNEL_SECRET)
-result_data = None
+# result_data = None
 
 
 @csrf_exempt
@@ -33,8 +33,8 @@ def callback(request):
         for event in events:
             if isinstance(event, MessageEvent):
                 message = event.message.text
-                if result_data == None:
-                    result_data = get_middle_rate()
+                # if result_data == None:
+                result_data = get_middle_rate()
                 message_object = None
                 if message == "報價":
                     replay_message = "您好!\n" + "請輸入欲查詢之幣別:\n" + "美金、港幣、日圓、人民幣...等"

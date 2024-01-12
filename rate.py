@@ -136,5 +136,5 @@ def get_currency_info(currency_code):
 
 if __name__ == "__main__":
     result_data = get_middle_rate()
-    # print(result_data)
-    print(get_currency_info("日圓"))
+    print(result_data)
+    print(get_currency_info("瑞士法郎"))
