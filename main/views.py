@@ -42,7 +42,7 @@ def callback(request):
 
                 elif message in result_data:
                     currency_info = result_data[message]
-                    replay_message = f"{message}\n報價如下:\n即期買入: {currency_info['即期買入']}\n即期賣出: {currency_info['即期賣出']}\n目前中價: {currency_info['目前中價']}"
+                    replay_message = f"報價如下:\n幣別: {currency_info['幣別']}\n即期買入: {currency_info['即期買入']}\n即期賣出: {currency_info['即期賣出']}\n目前中價: {currency_info['目前中價']}"
                     message_object = TextSendMessage(text=replay_message)
 
                 #    這樣寫也可以

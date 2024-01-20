@@ -89,7 +89,7 @@ def get_middle_rate():
                     columns=["幣別", "即期買入", "即期賣出", "目前中價"],
                 )
                 result_data = result_data.reset_index(drop=True)
-                result_data.index = result_data.index + 1
+                result_data.index = (result_data.index + 1).astype(str)
                 # str.extract(r'(.*)\s\((.*)\)') 使用正則表達式，(.*) 代表匹配任意字符，\s 代表空格，\((.*)\)代表匹配括號內的任意字和符號。
                 result_data[["幣別", "代碼"]] = result_data["幣別"].str.extract(
                     r"(.*)\s\((.*)\)"
@@ -140,4 +140,4 @@ def get_currency_info(currency_code):
 if __name__ == "__main__":
     result_data = get_middle_rate()
     print(result_data)
-    print(get_currency_info(2))
+    print(get_currency_info("1"))
