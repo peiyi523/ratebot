@@ -85,8 +85,11 @@ def get_middle_rate():
                 result_data = [row + [avg] for row, avg in zip(datas, averages)]
 
                 result_data = pd.DataFrame(
-                    result_data, columns=["幣別", "即期買入", "即期賣出", "目前中價"]
+                    result_data,
+                    columns=["幣別", "即期買入", "即期賣出", "目前中價"],
                 )
+                result_data = result_data.reset_index(drop=True)
+                result_data.index = result_data.index + 1
                 # str.extract(r'(.*)\s\((.*)\)') 使用正則表達式，(.*) 代表匹配任意字符，\s 代表空格，\((.*)\)代表匹配括號內的任意字和符號。
                 result_data[["幣別", "代碼"]] = result_data["幣別"].str.extract(
                     r"(.*)\s\((.*)\)"
@@ -95,14 +98,14 @@ def get_middle_rate():
                 result_data = result_data.to_dict("index")
                 # 轉成字典之後原本是長這樣result_data={0: {'幣別': '美金', '即期買入': 31.155, '即期賣出': 31.255, '目前中價': 31.205},...}
                 # 下面語法是為了把最前面的編號去掉
-                result_data = {
-                    info["幣別"].strip(): {
-                        "即期買入": info["即期買入"],
-                        "即期賣出": info["即期賣出"],
-                        "目前中價": info["目前中價"],
-                    }
-                    for _, info in result_data.items()  # "_"表示只要值(info)本身的資料，不需要鍵(_)的資料
-                }
+                # result_data = {
+                #     info["幣別"].strip(): {
+                #         "即期買入": info["即期買入"],
+                #         "即期賣出": info["即期賣出"],
+                #         "目前中價": info["目前中價"],
+                #     }
+                # for _, info in result_data.items()  # "_"表示只要值(info)本身的資料，不需要鍵(_)的資料
+                # }
 
     except Exception as e:
         print(e)
@@ -115,7 +118,7 @@ def get_currency_info(currency_code):
     try:
         if currency_code in result_data:
             currency_info = result_data[currency_code]
-            message = f"{currency_code} 報價如下:\n"
+            message = f"報價如下:\n"
             for key, value in currency_info.items():
                 message += f"{key}: {value}\n"
         # 另一種寫法
@@ -137,4 +140,4 @@ def get_currency_info(currency_code):
 if __name__ == "__main__":
     result_data = get_middle_rate()
     print(result_data)
-    print(get_currency_info("瑞士法郎"))
+    print(get_currency_info(2))
